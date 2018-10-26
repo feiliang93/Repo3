@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trx.liang.mapper.EmpMapper">
+  <resultMap id="BaseResultMap" type="com.trx.liang.entity.Emp">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="emp_sex" jdbcType="VARCHAR" property="empSex" />
+    <result column="emp_edu" jdbcType="VARCHAR" property="empEdu" />
+    <result column="did" jdbcType="INTEGER" property="did" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    emp_id, emp_name, emp_sex, emp_edu, did
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.trx.liang.entity.Emp">
+    insert into emp (emp_id, emp_name, emp_sex, 
+      emp_edu, did)
+    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{empSex,jdbcType=VARCHAR}, 
+      #{empEdu,jdbcType=VARCHAR}, #{did,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.trx.liang.entity.Emp">
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="empSex != null">
+        emp_sex,
+      </if>
+      <if test="empEdu != null">
+        emp_edu,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empEdu != null">
+        #{empEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trx.liang.entity.Emp">
+    update emp
+    <set>
+      <if test="empName != null">
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        emp_sex = #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empEdu != null">
+        emp_edu = #{empEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        did = #{did,jdbcType=INTEGER},
+      </if>
+    </set>
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trx.liang.entity.Emp">
+    update emp
+    set emp_name = #{empName,jdbcType=VARCHAR},
+      emp_sex = #{empSex,jdbcType=VARCHAR},
+      emp_edu = #{empEdu,jdbcType=VARCHAR},
+      did = #{did,jdbcType=INTEGER}
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+</mapper>
